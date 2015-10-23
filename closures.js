@@ -92,28 +92,6 @@ function secondF(x){
 }
 
 
-var firstName = function() {
-  return function() {
-      return 'Nathan';
-  }
-}
-var x = firstName();
-
-var fullName = function (inVar) {
-  curCount = 0;
-  return function (){
-    if (curCount === 0){ 
-      console.log(inVar() + ' Wallace');
-      curCount += 1;
-    }
-  }
-}
-
-var y = fullName(x);
-y();
-VM260:13 Nathan Wallace
-//Next Problem
-
 
 
 /*
@@ -147,8 +125,23 @@ fnCounter(dogs(),10);
       }, i*1000 );
     }
   };
+*/
+
+  var timer = function(x){
+    return function(){
+      console.log(x);
+    }
+  }
+  var counter = function(){
+    for (var i=1; i<=5; i++) {
+      setTimeout(timer(i), i*1000 );
+    }
+  };
+
+counter();
 
 
+/*
   Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
 
     //Answer Here
@@ -170,6 +163,16 @@ fnCounter(dogs(),10);
 
 //Next Problem
 
+var x = function(y){
+    return function() {
+      console.log(y);
+    }
+}
+
+funcArray = [];
+for (i=0; i<6;i++){
+  funcArray[i] = x(i);
+}
 
 
 /*

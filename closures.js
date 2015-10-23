@@ -9,11 +9,11 @@ var outer = function(){
 //Above you're given a function that returns another function which has a closure over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
-  //Code Here
+  var inner = outer();
 
 //Once you do that, invoke inner.
 
-  //Code Here
+  inner(); 
 
 
 
@@ -32,7 +32,7 @@ var callFriend = function(){
 //Above you're given a callFriend function that returns another function.
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
-  //Code Here
+  callFriend()(435-215-9248);
 
 
 
@@ -42,9 +42,15 @@ var callFriend = function(){
 
 /*
   Write a function called makeCounter that makes the following code work properly.
-*/
+*/function makeCounter(){
+  var num = 1;
+  return function() {
+   return num++;
+  }
+  return num;
+}
 
-  //Code Here
+  
   var count = makeCounter();
   count() // 1
   count() // 2
@@ -53,28 +59,82 @@ var callFriend = function(){
 
 
 
+function makeCounter() {
+  var num = 0;
+  return function() {
+    return num++
+  }
+  return num;
+}
+
+
+
+/*
+  Write a function that does something simple (console, alert, etc). Write a second function that accepts the first function as it's 
+  first parameter. The second function should return a new third function which, when invoked, invokes the first, original function 
+  that was passed in, but will only ever do so once.
+*/
+
+function simple() {
+  alert('bye felicia');
+}
+var x = simple();
+
+function secondF(x){
+  var timesInvoked = 0;
+  return function() {
+    if( timesInvoked ===0){
+    }
+    return simple();
+    timesInvoked++;
+  }
+
+}
+
+
+var firstName = function() {
+  return function() {
+      return 'Nathan';
+  }
+}
+var x = firstName();
+
+var fullName = function (inVar) {
+  curCount = 0;
+  return function (){
+    if (curCount === 0){ 
+      console.log(inVar() + ' Wallace');
+      curCount += 1;
+    }
+  }
+}
+
+var y = fullName(x);
+y();
+VM260:13 Nathan Wallace
 //Next Problem
 
 
 
 /*
-  Write a function that does something simple (console, alert, etc). Write a second function that accepts the first function as it's first parameter. The second function should return a new third function which, when invoked, invokes the first, original function that was passed in, but will only ever do so once.
+  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an 
+  anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 
+  'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
 */
 
-  //Code Here
+function dogs() {
+  return function() {
+    console.log('Big Dog');
+  }
+}
 
-
-
-//Next Problem
-
-
-
-/*
-  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
-*/
-
-
-
+function fnCounter(X,N) {
+for(i =0; i<N; i++) {
+  X();
+}
+return 'STOP';
+}
+fnCounter(dogs(),10);
 //Next Problem
 
 
@@ -87,6 +147,7 @@ var callFriend = function(){
       }, i*1000 );
     }
   };
+
 
   Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
 
